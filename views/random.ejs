@@ -1,0 +1,24 @@
+<%- include('partials/navbar.ejs') %>
+<link rel='stylesheet' href='/style.css' />
+<body>
+  <!-- // top left skewed header design  -->
+  <!-- skewed background -->
+<script src="https://gaidadei.ru/easycanvas/easyc.js"></script> 
+<!-- google fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+
+<!-- //h1 is clickable taking you back to homepage// -->
+<!-- <a href="/">  -->
+  <!-- <h1 id="title">Random</h1></a> -->
+    <!-- "out" is where GIFs are being rendered out to on the page -->
+  <div class="out">Randomness!</div>
+    
+  </main>
+<!-- // main row where gifs and all it's data are rendered on page// -->
+  <div class="row">
+        <!-- // where the data from API is being displayed from server.js // -->
+    <% data.forEach(element => { %>
+            <!-- // where the images data from the data.images is being displayed // -->
+      <img src=  <%= element %> />
+    <% }); %>
+</div>
