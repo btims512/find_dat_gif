@@ -2,7 +2,7 @@ const express = require("express"); // to be able to use express module //
 const app = express(); // declaring express app as a variable to use //
 const dotenv = require("dotenv").config(); //using dotenv file to hide my API key//
 const key = process.env.API_KEY; //how I hide my API key//
-//API key for grading purposes 'Sd6Qp7OHdPXtMIUXPvOSsZeBVWSl5xA6'
+
 
 const $fetch = require("node-fetch"); //node-fetch module//
 
