@@ -4,6 +4,7 @@ const dotenv = require("dotenv").config(); //using dotenv file to hide my API ke
 const key = process.env.API_KEY;
 
 const $fetch = require("node-fetch");
+app.use(express.json());
 
 app.use(express.static(__dirname + "/public")); //for locating css file//
 
@@ -33,7 +34,7 @@ app.get("/", (req, res) => {
     .catch((error) => console.error("Error from network: ", error));
 });
 
-// search page //
+// search results page //
 app.get("/search", (req, res) => {
   let searchInput = req.query.search;
   $fetch(
@@ -52,19 +53,55 @@ app.get("/search", (req, res) => {
 });
 
 // Random Page //
+// app.get("/random", (req, res) => {
+//   $fetch(`${baseUrl}v1/gifs/random?api_key=${key}&limit=1`)
+//     .then((response) => {
+//       if (!response.ok) {
+//         throw Error(response.statusText);
+//       }
+//       return response.json();
+//     })
+//     .then((data) => {
+//       res.render("random.ejs", { data });
+//     })
+//     .catch((error) => console.error("Error from network: ", error));
+// });
+
 app.get("/random", (req, res) => {
-  let searchInput = req.query.search;
-  $fetch(`api.giphy.com/v1/gifs/random?api_key=${key}`)
-    .then((res) => res.json())
+  let random = `${baseUrl}v1/gifs/random?api_key=${key}&limit=25`;
+
+  console.log(random);
+
+  $fetch(random)
+    .then((response) => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response.json();
+    })
     .then((data) => {
-      let searchArray = [];
-      data.data.forEach((element) => {
-        searchArray.push(element.images.fixed_height.url);
+      let gifArray = [];
+      data.forEach((element) => {
+        gifArray.push(element.images.fixed_height.url);
       });
-      res.render("results.ejs", { data: searchArray });
+      res.render("random.ejs", { data: gifArray });
     })
     .catch((error) => console.error("Error from network: ", error));
+  res.render("random.ejs");
 });
+// app.get("/random", (req, res) => {
+//   let searchInput = req.query.search;
+//   $fetch(`api.giphy.com/v1/gifs/random?api_key=${key}`)
+//     .then((res) => res.json())
+//     .then((data) => {
+//       let searchArray = [];
+//       data.data.forEach((element) => {
+//         searchArray.push(element.images.fixed_height.url);
+//       });
+//       res.render("results.ejs", { data: searchArray });
+//     })
+//     .catch((error) => console.error("Error from network: ", error));
+// });
 
 // Categories Page //
 app.get("/categories", (req, res) => {
@@ -84,6 +121,7 @@ app.get("/categories", (req, res) => {
       res.render("categories.ejs", { data: gifArray });
     })
     .catch((error) => console.error("Error from network: ", error));
+  res.render("categories.ejs");
 });
 
 // About Page //
@@ -93,22 +131,7 @@ app.get("/about", (req, res) => {
 
 // Contact Page //
 app.get("/contact", (req, res) => {
-  let endpoint = `${baseUrl}v1/gifs/categories?api_key=${key}`;
-  $fetch(endpoint)
-    .then((response) => {
-      if (!response.ok) {
-        throw Error(response.statusText);
-      }
-      return response.json();
-    })
-    .then((data) => {
-      let gifArray = [];
-      data.forEach((element) => {
-        gifArray.push(element.images.fixed_height.url);
-      });
-      res.render("contact.ejs", { data: gifArray });
-    })
-    .catch((error) => console.error("Error from network: ", error));
+  res.render("contact.ejs");
 });
 
 const port = process.env.PORT || 4000;

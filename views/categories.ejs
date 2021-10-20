@@ -5,23 +5,21 @@
   <!-- //google fonts// -->
 <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet"> 
 
+<div id="main-search">
   <!-- // search bar div // -->
-  <div id="main-search">
-    <!-- // search form with get method // -->
-    <form action="/search" method="get"> 
-      <!-- // input field // -->
-      <input type="text" name="search"> 
-      <!-- // search/go button // -->
-      <button id="btnSearch">Go</button> 
-    </div>
-    <div class="out">Search Results:</div>
+  <!-- // search form with get method // -->
+  <form action="/search" method="get"> 
+    <!-- // input field // -->
+    <input type="text" name="search"> 
+    <!-- // search/go button // -->
+    <button id="btnSearch">Go</button> 
+  </div>
+  <div class="out">Categories</div>
     </form>
   </main>
   <!-- // main row where gifs and all it's data are rendered on page// -->
   <div class="row"> 
     <!-- // where the data from API is being displayed from server.js // -->
-    <% data.forEach(element => { %> 
-      <!-- // where the images data from the data.images is being displayed // -->
-      <img src=  <%= element %> /> 
-    <% }); %>
+
+
 
