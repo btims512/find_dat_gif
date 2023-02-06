@@ -6,25 +6,13 @@
 <script src="https://gaidadei.ru/easycanvas/easyc.js"></script> 
 <!-- google fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
-
-<!-- //h1 is clickable taking you back to homepage// -->
-<!-- <a href="/">  -->
-  <!-- <h1 id="title">Find Dat Gif!</h1></a> -->
-  <!-- search bar div -->
   <div id="main-search">
-        <!-- // search form preforming a get method // -->
     <form action="/search" method="get">
-            <!-- // input field // -->
-    <input type="text" name="search">
-    <!-- // search/go button // -->
-      <button id="btnSearch">Go</button>
   </div>
     </form>
-    <!-- "out" is where GIFs are being rendered out to on the page -->
-  <div class="out">Top Trending GIFS</div>
+  <div class="out" style="min-height: 5vh">Top Trending GIFS</div>
     
   </main>
-<!-- // main row where gifs and all it's data are rendered on page// -->
   <div class="row">
         <!-- // where the data from API is being displayed from server.js // -->
     <% data.forEach(element => { %>

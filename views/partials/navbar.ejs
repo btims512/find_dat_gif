@@ -5,22 +5,29 @@
     <label for="show-menu" class="menu-icon"><i class="fas fa-bars"></i></label>
     <div class="content">
       <div class="logo"><a href="/">Find Dat Gif!</a></div>
-      <ul class="links">
-        <li><a href="/">Home</a></li>
-        <li><a href="/random">Random</a></li>
-        <li><a href="/categories">Categories</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a href="/contact">Contact</a></li>
-      </ul>
+      <div class="links-container">
+        <ul class="links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/random">Random</a></li>
+          <li><a href="/categories">Categories</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </div>
     </div>
     <label for="show-search" class="search-icon"
-      ><i class="fas fa-search"></i
-    ></label>
+      ><i class="fas fa-search"></i>
+    </label>
     <form action="/search" class="search-box">
-      <input type="text" placeholder="Type Something to Search..." required />
-      <button type="submit" class="go-icon">
+      <!-- <button type="submit" class="go-icon">
         <i class="fas fa-long-arrow-alt-right"></i>
-      </button>
+      </button> -->
+      <input
+        type="text"
+        name="search"
+        placeholder="Type Something to Search..."
+        required
+      />
     </form>
   </nav>
 </div>
@@ -106,21 +113,25 @@
     width: 100%;
     opacity: 0;
     pointer-events: none;
-    transition: all 0.3s ease;
   }
   .wrapper #show-search:checked ~ .search-box {
     opacity: 1;
     pointer-events: auto;
+    margin-top: 249px;
+    padding-left: 764px;
+    padding-bottom: 100px;
+    margin-left: 57px;
   }
   .search-box input {
-    width: 100%;
-    height: 100%;
+    width: 278px;
+    height: 50px;
     border: none;
     outline: none;
-    font-size: 17px;
+    font-size: 10px;
     color: #fff;
     background: #171c24;
-    padding: 0 100px 0 15px;
+    padding: 20px;
+    margin: -35px;
   }
   .search-box input::placeholder {
     color: #f2f2f2;
