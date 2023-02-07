@@ -167,7 +167,7 @@
                 <h4 ">
                   Sub Categories
                 </h4>
-                <p id="adjectives"></p>
+                <p id="subcats"></p>
               </div>
             </div>
             <!--  -->
@@ -513,6 +513,26 @@
           <p>
             </p>
           `;
+        let tab4 = `
+          <p>
+            </p>
+          `;
+        let tab5 = `
+          <p>
+            </p>
+          `;
+        let tab6 = `
+          <p>
+            </p>
+          `;
+        let tab7 = `
+          <p>
+            </p>
+          `;
+        let sub3 = `
+          <p>
+            </p>
+          `;
 
         for (let r of data.data) {
           let subCats = r.subcategories;
@@ -524,12 +544,25 @@
           tab3 += `
           <p> ${subCats[1].name}</p>
           `;
-          console.log(subCats);
+          tab4 += `
+          <p> ${subCats[2].name}</p>
+          `;
+          tab5 += `
+          <p> ${subCats[3].name}</p>
+          `;
+          tab6 += `
+          <p> ${subCats[4].name}</p>
+          `;
+          tab7 += `
+          <p> ${subCats[5].name}</p>
+          `;
+          console.log(r.subcategories[1].name);
         }
 
         document.getElementById("categories").innerHTML = tab;
         document.getElementById("action").innerHTML = tab2;
         document.getElementById("adjectives").innerHTML = tab3;
+        document.getElementById("subcats").innerHTML = sub3;
       }
 
       document.getElementById("search").textContent;
