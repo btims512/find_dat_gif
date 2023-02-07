@@ -1,21 +1,55 @@
 <%- include('partials/navbar.ejs') %>
-<link rel='stylesheet' href='/style.css' />
+<link rel="stylesheet" href="/style.css" />
 <body>
-  <!-- // top left skewed header design  -->
-  <!-- skewed background -->
-<script src="https://gaidadei.ru/easycanvas/easyc.js"></script> 
-<!-- google fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
-
-
-<div class="out">Randomness!</div>
-  </main>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://gaidadei.ru/easycanvas/easyc.js"></script>
+  <!-- google fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bangers&display=swap"
+    rel="stylesheet"
+  />
+  <div class="out" style="padding-top: 158px;">Pure & Utter Randomness!</div>
   <div class="row">
-    <% data.forEach(data => { %>
-      <img src=  <%= data %> />
-      <% }); %>
+    <div id="random"></div>
+    <div class="form">
+      <div id="search" />
+    </div>
+    <img src="#" />
+    <button>Another GIF</button>
 
+    <script>
+      const img = document.querySelector("img");
+      const btn = document.querySelector("button");
+      const form = document.querySelector(".form");
+      const search = document.getElementById("search");
 
-      
+      btn.addEventListener("click", loadGIF);
+      form.addEventListener("submit", loadGIF);
 
+      function loadGIF(e) {
+        let searchValue = search.value; 
+        if (!searchValue) {
+          searchValue = "random"; 
+        }
+        e.preventDefault();
+        fetch(
+          "https://api.giphy.com/v1/gifs/random?api_key=kti6hwvYtBJnz6xSU2KEkqFSjbwVMEqE&s=random"
+        )
+          .then(function (response) {
+            return response.json();
+            console.log(response);
+          })
+          .then(function (json) {
+            img.src = json.data.images.fixed_height.url;
+
+            console.log(img.src);
+          })
+          .catch(function (err) {
+            console.log(err);
+          });
+      }
+
+      document.addEventListener("DOMContentLoaded", loadGIF);
+    </script>
   </div>
+</body>

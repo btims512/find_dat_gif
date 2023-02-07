@@ -27,7 +27,7 @@ a {
 }
 
 .out {
-  min-height: 29vh;
+  min-height: 23vh;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -143,12 +143,45 @@ img {
 }
 
 .biopic {
-  width: 450px;
-  height: 600px;
+  width: 325px;
+  height: 427px;
 }
 
 .about {
   font-size: 25px;
   font-family: 'Space Grotesk', sans-serif;
   width: 1000px;
+  text-align: center;
+  padding-bottom: 150px;
+}
+
+.form {
+  margin-bottom: 0.8rem;
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  margin-top: 0.5rem;
+  background: #4dad87;
+  border: none;
+  padding: 0.5rem 1rem;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+button:hover {
+  background: rgb(90, 80, 240);
+}
+
+#categories {
+  text-align: center;
+  padding-top: 45px;
+}
+
+#categories a:hover {
+  text-align: center;
+  padding-top: 45px;
+  color: #ffffff80;
 }

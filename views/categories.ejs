@@ -1,26 +1,538 @@
 <%- include('partials/navbar.ejs') %>
-<link rel='stylesheet' href='/style.css' />
+<link rel="stylesheet" href="/style.css" />
 <body>
-  <!-- //google fonts// -->
-<link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://gaidadei.ru/easycanvas/easyc.js"></script>
+  <!-- google fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bangers&display=swap"
+    rel="stylesheet"
+  />
 
-  <!-- // search bar div // -->
-  <div id="main-search">
-    <!-- // search form with get method // -->
-    <form action="/search" method="get"> 
-      <!-- // input field // -->
-      <input type="text" name="search"> 
-      <!-- // search/go button // -->
-      <button id="btnSearch">Go</button> 
+  <style>
+    @charset "UTF-8";
+    body {
+      color: #2c3e50;
+      /* background: #ecf0f1; */
+      padding: 0 1em 1em;
+    }
+
+    h1 {
+      margin: 0;
+      line-height: 2;
+      text-align: center;
+      color: #95959545;
+    }
+
+    h2 {
+      margin: 0 0 0.5em;
+      font-weight: normal;
+    }
+
+    input {
+      position: absolute;
+      opacity: 0;
+      z-index: -1;
+    }
+
+    .row {
+      display: flex;
+    }
+    .row .col {
+      flex: 1;
+    }
+    .row .col:last-child {
+      margin-left: 1em;
+    }
+
+    /* Accordion styles */
+    .tabs {
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 4px -2px rgba(0, 0, 0, 0.5);
+    }
+
+    .tab {
+      width: 100%;
+      /* color: white; */
+      overflow: hidden;
+    }
+    .tab-label {
+      display: flex;
+      justify-content: space-between;
+      padding: 1em;
+      background: #171c24;
+      font-weight: bold;
+      cursor: pointer;
+      width: 40vw;
+      color: #ffff;
+      /* Icon */
+    }
+    .tab-label:hover {
+      background: #1a252f;
+    }
+    .tab-label::after {
+      content: "❯";
+      width: 1em;
+      height: 1em;
+      text-align: center;
+      transition: all 0.35s;
+    }
+    #tab-content {
+      max-height: 0;
+      padding: 0 1em;
+      color: white;
+      background: #171c24;
+      transition: all 0.35s;
+    }
+
+    #tab-content h4 {
+      text-align: center;
+      text-decoration: underline;
+      color: #95959545;
+    }
+    .tab-close {
+      display: flex;
+      justify-content: flex-end;
+      padding: 1em;
+      font-size: 0.75em;
+      background: #171c24;
+      cursor: pointer;
+    }
+    .tab-close:hover {
+      background: #1a252f;
+    }
+
+    input:checked + .tab-label {
+      background: #1a252f;
+    }
+    input:checked + .tab-label::after {
+      transform: rotate(90deg);
+    }
+    input:checked ~ #tab-content {
+      max-height: 100vh;
+      padding: 1em;
+    }
+  </style>
+  <div class="row">
+    <div class="form" style="margin-top: 100px">
+      <button style="display: none"></button>
+
+      <div>
+        <div class="d-flex justify-content-center">
+          <div class="spinner-border" role="status" id="loading">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+      </div>
+      <div style="margin-bottom: 100px">
+        <h1>Search by Categories</h1>
+        <!-- table for showing data -->
+        <a id="categories"></a>
+        <!-- <a href="categories"></a> -->
+      </div>
+
+      <!-- accordion -->
+      <div class="row">
+        <div class="col">
+          <div class="tabs">
+            <!-- action -->
+            <div class="tab">
+              <input type="radio" id="rd1" name="rd" />
+              <label class="tab-label" for="rd1">Action</label>
+              <div id="tab-content">
+                <h4
+                >
+                  Sub Categories
+                </h4>
+                <p id="action"></p>
+              </div>
+            </div>
+            <!-- adjectives -->
+            <div class="tab">
+              <input type="radio" id="rd2" name="rd" />
+              <label class="tab-label" for="rd2">Adjectives</label>
+              <div id="tab-content">
+                <h4 ">
+                  Sub Categories
+                </h4>
+                <p id="adjectives"></p>
+              </div>
+            </div>
+            <!--  -->
+            <div class="tab">
+              <input type="radio" id="rd3" name="rd" />
+              <label class="tab-label" for="rd3">Animals</label>
+              <div id="tab-content">
+                <h4 ">
+                  Sub Categories
+                </h4>
+                <p id="adjectives"></p>
+              </div>
+            </div>
+            <!--  -->
+            <div class="tab">
+              <input type="radio" id="rd4" name="rd" />
+              <label class="tab-label" for="rd4">Anime</label>
+              <div id="tab-content">
+                <h4 ">
+                  Sub Categories
+                </h4>
+                <p id="adjectives"></p>
+              </div>
+            </div>
+            <!--  -->
+            <div class="tab">
+              <input type="radio" id="rd5" name="rd" />
+              <label class="tab-label" for="rd5">Art & Design</label>
+              <div id="tab-content">
+                <h4 ">
+                  Sub Categories
+                </h4>
+                <p id="adjectives"></p>
+              </div>
+            </div>
+            <!--  -->
+            <div class="tab">
+              <input type="radio" id="rd5" name="rd" />
+              <label class="tab-label" for="rd5">Cartoons and Comics</label>
+              <div id="tab-content">
+                <h4 ">
+                  Sub Categories
+                </h4>
+                <p id="adjectives"></p>
+              </div>
+            </div>
+            <!--  -->
+            <div class="tab">
+              <input type="radio" id="rd6" name="rd" />
+              <label class="tab-label" for="rd6">Celebrities</label>
+              <div id="tab-content">
+                <h4 ">
+                  Sub Categories
+                </h4>
+                <p id="adjectives"></p>
+              </div>
+            </div>
+            <!--  -->
+            <div class="tab">
+              <input type="radio" id="rd7" name="rd" />
+              <label class="tab-label" for="rd7">Decades</label>
+              <div id="tab-content">
+                <h4 ">
+                  Sub Categories
+                </h4>
+                <p id="adjectives"></p>
+              </div>
+            </div>
+            <!--  -->
+            <div class="tab">
+              <input type="radio" id="rd8" name="rd" />
+              <label class="tab-label" for="rd8">Emotions</label>
+              <div id="tab-content">
+                <h4 ">
+                  Sub Categories
+                </h4>
+                <p id="adjectives"></p>
+              </div>
+            </div>
+            <!--  -->
+            <div class="tab">
+              <input type="radio" id="rd9" name="rd" />
+              <label class="tab-label" for="rd8">Fashion and Beauty</label>
+              <div id="tab-content">
+                <h4 ">
+                  Sub Categories
+                </h4>
+                <p id="adjectives"></p>
+              </div>
+            </div>
+            <!--  -->
+            <div class="tab">
+              <input type="radio" id="rd9" name="rd" />
+              <label class="tab-label" for="rd9">Food & Drink</label>
+              <div id="tab-content">
+                <h4 ">
+                  Sub Categories
+                </h4>
+                <p id="adjectives"></p>
+              </div>
+            </div>
+            <!--  -->
+            <div class="tab">
+              <input type="radio" id="rd10" name="rd" />
+              <label class="tab-label" for="rd10">Gaming</label>
+              <div id="tab-content">
+                <h4 ">
+                  Sub Categories
+                </h4>
+                <p id="adjectives"></p>
+              </div>
+            </div>
+            <!--  -->
+            <div class="tab">
+              <input type="radio" id="rd11" name="rd" />
+              <label class="tab-label" for="rd11">Greetings</label>
+              <div id="tab-content">
+                <h4 ">
+                  Sub Categories
+                </h4>
+                <p id="adjectives"></p>
+              </div>
+            </div>
+            <!--  -->
+            <div class="tab">
+              <input type="radio" id="rd12" name="rd" />
+              <label class="tab-label" for="rd12">Holidays</label>
+              <div id="tab-content">
+                <h4 ">
+                  Sub Categories
+                </h4>
+                <p id="adjectives"></p>
+              </div>
+            </div>
+            <!--  -->
+            <div class="tab">
+              <input type="radio" id="rd13" name="rd" />
+              <label class="tab-label" for="rd13">Identity</label>
+              <div id="tab-content">
+                <h4 ">
+                  Sub Categories
+                </h4>
+                <p id="adjectives"></p>
+              </div>
+            </div>
+            <!--  -->
+            <div class="tab">
+              <input type="radio" id="rd14" name="rd" />
+              <label class="tab-label" for="rd14">Interests</label>
+              <div id="tab-content">
+                <h4 ">
+                  Sub Categories
+                </h4>
+                <p id="adjectives"></p>
+              </div>
+            </div>
+            <!--  -->
+            <div class="tab">
+              <input type="radio" id="rd15" name="rd" />
+              <label class="tab-label" for="rd15">Memes</label>
+              <div id="tab-content">
+                <h4 ">
+                  Sub Categories
+                </h4>
+                <p id="adjectives"></p>
+              </div>
+            </div>
+            <!--  -->
+            <div class="tab">
+              <input type="radio" id="rd16" name="rd" />
+              <label class="tab-label" for="rd16">Movies</label>
+              <div id="tab-content">
+                <h4 ">
+                  Sub Categories
+                </h4>
+                <p id="adjectives"></p>
+              </div>
+            </div>
+            <!--  -->
+            <div class="tab">
+              <input type="radio" id="rd17" name="rd" />
+              <label class="tab-label" for="rd17">Music</label>
+              <div id="tab-content">
+                <h4 ">
+                  Sub Categories
+                </h4>
+                <p id="adjectives"></p>
+              </div>
+            </div>
+            <!--  -->
+            <div class="tab">
+              <input type="radio" id="rd18" name="rd" />
+              <label class="tab-label" for="rd18">Nature</label>
+              <div id="tab-content">
+                <h4 ">
+                  Sub Categories
+                </h4>
+                <p id="adjectives"></p>
+              </div>
+            </div>
+            <!--  -->
+            <div class="tab">
+              <input type="radio" id="rd19" name="rd" />
+              <label class="tab-label" for="rd19">News & Politics</label>
+              <div id="tab-content">
+                <h4 ">
+                  Sub Categories
+                </h4>
+                <p id="adjectives"></p>
+              </div>
+            </div>
+            <!--  -->
+            <div class="tab">
+              <input type="radio" id="rd20" name="rd" />
+              <label class="tab-label" for="rd20">Reactions</label>
+              <div id="tab-content">
+                <h4 ">
+                  Sub Categories
+                </h4>
+                <p id="adjectives"></p>
+              </div>
+            </div>
+            <!--  -->
+            <div class="tab">
+              <input type="radio" id="rd21" name="rd" />
+              <label class="tab-label" for="rd22">Science</label>
+              <div id="tab-content">
+                <h4 ">
+                  Sub Categories
+                </h4>
+                <p id="adjectives"></p>
+              </div>
+            </div>
+            <!--  -->
+            <div class="tab">
+              <input type="radio" id="rd23" name="rd" />
+              <label class="tab-label" for="rd24">Sports</label>
+              <div id="tab-content">
+                <h4 ">
+                  Sub Categories
+                </h4>
+                <p id="adjectives"></p>
+              </div>
+            </div>
+            <!--  -->
+            <div class="tab">
+              <input type="radio" id="rd25" name="rd" />
+              <label class="tab-label" for="rd25">Stickers</label>
+              <div id="tab-content">
+                <h4 ">
+                  Sub Categories
+                </h4>
+                <p id="adjectives"></p>
+              </div>
+            </div>
+            <!--  -->
+            <div class="tab">
+              <input type="radio" id="rd26" name="rd" />
+              <label class="tab-label" for="rd26">Transportation</label>
+              <div id="tab-content">
+                <h4 ">
+                  Sub Categories
+                </h4>
+                <p id="adjectives"></p>
+              </div>
+            </div>
+            <!--  -->
+            <div class="tab">
+              <input type="radio" id="rd27" name="rd" />
+              <label class="tab-label" for="rd27">Tv</label>
+              <div id="tab-content">
+                <h4 ">
+                  Sub Categories
+                </h4>
+                <p id="adjectives"></p>
+              </div>
+            </div>
+            <!--  -->
+            <div class="tab">
+              <input type="radio" id="rd28" name="rd" />
+              <label class="tab-label" for="rd28">Weird</label>
+              <div id="tab-content">
+                <h4 ">
+                  Sub Categories
+                </h4>
+                <p id="adjectives"></p>
+              </div>
+            </div>
+            <div class="tab">
+              <input type="radio" id="rd3" name="rd" />
+              <label for="rd3" class="tab-close">Close others &times;</label>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="out">Search Results:</div>
-    </form>
-  </main>
-  <!-- // main row where gifs and all it's data are rendered on page// -->
-  <div class="row"> 
-    <!-- // where the data from API is being displayed from server.js // -->
-    <% data.forEach(element => { %> 
-      <!-- // where the images data from the data.images is being displayed // -->
-      <img src=  <%= element %> /> 
-    <% }); %>
 
+    <script>
+      const img = document.querySelector("img");
+      const btn = document.querySelector("button");
+      const form = document.querySelector(".form");
+      const search = document.getElementById("search");
+
+      btn.addEventListener("click", loadGIF);
+      form.addEventListener("submit", loadGIF);
+
+      function loadGIF(e) {
+        let searchValue = search.value;
+        if (!searchValue) {
+          searchValue = "random";
+        }
+        e.preventDefault();
+        fetch(
+          "https://api.giphy.com/v1/gifs/categories?api_key=kti6hwvYtBJnz6xSU2KEkqFSjbwVMEqE&s"
+        )
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (json) {
+            src = json.data;
+            src.forEach((src) => {
+              Object.entries(src).forEach(([key, value]) => {});
+            });
+          })
+          .catch(function (err) {
+            console.log(err);
+          });
+      }
+      const api_url =
+        "https://api.giphy.com/v1/gifs/categories?api_key=kti6hwvYtBJnz6xSU2KEkqFSjbwVMEqE&s";
+
+      async function getapi(url) {
+        const response = await fetch(url);
+        var data = await response.json();
+        if (response) {
+          hideloader();
+        }
+        show(data);
+      }
+      getapi(api_url);
+
+      function hideloader() {
+        document.getElementById("loading").style.display = "none";
+      }
+      function show(data) {
+        let tab = `<a>
+          
+		</a>`;
+        let tab2 = `
+          <p>
+            </p>
+          `;
+        let tab3 = `
+          <p>
+            </p>
+          `;
+
+        for (let r of data.data) {
+          let subCats = r.subcategories;
+          let urls = r.gif.images.downsized.url;
+          tab += ``;
+          tab2 += `
+          <p> ${subCats[0].name}</p>
+          `;
+          tab3 += `
+          <p> ${subCats[1].name}</p>
+          `;
+          console.log(subCats);
+        }
+
+        document.getElementById("categories").innerHTML = tab;
+        document.getElementById("action").innerHTML = tab2;
+        document.getElementById("adjectives").innerHTML = tab3;
+      }
+
+      document.getElementById("search").textContent;
+    </script>
+  </div>
+</body>
